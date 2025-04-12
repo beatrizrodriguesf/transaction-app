@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from './components/login/Login'
 import Dashboard from './components/dashboard/Dashboard';
+import Register from './components/newUser/newUser'
 import useToken from './useToken';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={redirectToLogin(<Dashboard/>)} />
             <Route path="/login" element={<Login setToken={setToken}/>} />
+            <Route path="/register" element={<Register/>}/>
           </Routes>
         </Router>
       </div>

@@ -22,9 +22,14 @@ export default function Login({ setToken }) {
         });
         setToken(token);
         if (token) {
-            navigate("/")
+            navigate("/");
         }
       }
+
+      const handleCadastrar = async e => {
+        e.preventDefault();
+        navigate("/register");
+      };
     
     return(
         <div className="login-wrapper">
@@ -38,8 +43,13 @@ export default function Login({ setToken }) {
             <p>Password</p>
             <input type="password" onChange={e => setPassword(e.target.value)}/>
             </label>
-            <div>
-            <button onClick={handleSubmit} type="submit">Submit</button>
+            <div className ="buttons">
+              <div>
+              <button onClick={handleSubmit} type="submit">Login</button>
+              </div>
+              <div>
+              <button onClick={handleCadastrar}>Cadastrar</button>
+              </div>
             </div>
         </form>
         </div>
