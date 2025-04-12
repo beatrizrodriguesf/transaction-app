@@ -2,6 +2,11 @@ from sqlmodel import SQLModel, Field
 from datetime import date
 from typing import Optional
 from pydantic import BaseModel
+from enum import Enum
+
+class TransactionType(Enum):
+    REVENUE = "revenue"
+    EXPENSE = "expense"
 
 class UserCreate(BaseModel):
     id: Optional[int] = Field(default = None, primary_key=True) 
@@ -19,7 +24,7 @@ class Login(SQLModel):
 
 class TransactionCreate(BaseModel):
     id: Optional[int] = Field(default = None, primary_key=True)
-    type: str # receita ou despesa
+    type: TransactionType
     value: float
     date: date
     category: str = Field(foreign_key="category.name")
@@ -30,7 +35,8 @@ class Transaction(TransactionCreate, SQLModel, table = True):
     pass
 
 class Category(SQLModel, table = True):
-    name: str = Field(primary_key=True)
+    id: int = Field(primary_key=True)
+    name: str
     user: int = Field(foreign_key="user.id")
     details: str
 
