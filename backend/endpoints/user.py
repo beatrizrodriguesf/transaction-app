@@ -3,13 +3,12 @@ from fastapi import APIRouter, HTTPException, Depends
 from models import *
 from typing import Annotated
 from sqlmodel import Session, select
-from database import get_session
+from dependencies import get_session, KEY
 from hashfunctions import get_password_hash, verify_password
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
 router = APIRouter()
-key = "trans@ctIOnAPP"
 
 @router.post("/registrar", status_code=201)
 def create_user(user: UserCreate, session: SessionDep):
@@ -32,12 +31,16 @@ def create_user(user: UserCreate, session: SessionDep):
 
         # Cria jwt
         payload = {"email": new_user.email}
-        encoded_jwt = jwt.encode(payload, key, algorithm="HS256")
+        encoded_jwt = jwt.encode(payload, KEY, algorithm="HS256")
         json_jwt = {"jwt": f"{encoded_jwt}"}
         return json_jwt
     else:
         # Se o email já está cadastrado
         raise HTTPException(status_code=409, detail=f"Email já cadastrado")
+    
+@router.get("/users", status_code=200)
+def users(session: SessionDep):
+    return session.exec(select(User)).all()
 
 @router.post("/login", status_code=200)
 def login(login: Login, session: SessionDep):
@@ -48,7 +51,7 @@ def login(login: Login, session: SessionDep):
         hashed_password = existent_user.password
         if (verify_password(login.password, hashed_password)):
             payload = {"email" : existent_user.email}
-            encoded_jwt = jwt.encode(payload, key, algorithm="HS256")
+            encoded_jwt = jwt.encode(payload, KEY, algorithm="HS256")
             json_jwt = {"jwt": f"{encoded_jwt}"}
             return json_jwt
         else:

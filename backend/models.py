@@ -17,7 +17,7 @@ class Login(SQLModel):
     email: str
     password: str
 
-class Transaction(SQLModel, table = True):
+class TransactionCreate(BaseModel):
     id: Optional[int] = Field(default = None, primary_key=True)
     type: str # receita ou despesa
     value: float
@@ -25,6 +25,9 @@ class Transaction(SQLModel, table = True):
     category: str = Field(foreign_key="category.name")
     user: int = Field(foreign_key="user.id")
     details: Optional[str]
+
+class Transaction(TransactionCreate, SQLModel, table = True):
+    pass
 
 class Category(SQLModel, table = True):
     name: str = Field(primary_key=True)
