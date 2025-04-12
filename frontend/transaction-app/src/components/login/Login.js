@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './Login.css';
-import PropTypes from 'prop-types';
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
-    console.log(credentials)
     return axios.post('http://localhost:8000/login', credentials)
       .then(response => response.data)
       .catch(e=>console.log(e))
@@ -13,6 +12,7 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -21,6 +21,9 @@ export default function Login({ setToken }) {
           'password':password
         });
         setToken(token);
+        if (token) {
+            navigate("/")
+        }
       }
     
     return(
