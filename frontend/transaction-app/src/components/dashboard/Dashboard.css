@@ -1,0 +1,92 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.transacoes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.revenue {
+    color:green;
+    margin: 0.5rem;
+}
+
+.expense {
+    color:red;
+    margin: 0.5rem;
+}
+
+.transaction {
+    margin: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border-style: solid;
+    border-width: 0.1rem;
+    border-color: gray;
+    border-radius: 0.5rem;
+    min-width: 10rem;
+    width: 100%;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 1.2rem;
+}
+
+.top-line {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+p {
+    padding: 0;
+    margin: 0.5rem;
+}
+
+.details {
+    padding: 0;
+    margin: 0 0.5rem;
+    color: gray;
+}
+
+.dropdown {
+    background: white;
+    border-style: outset;
+    border-color: gray;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 10%;
+}
